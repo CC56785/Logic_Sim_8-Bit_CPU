@@ -1,0 +1,35 @@
+add r1, r0, r0
+
+// lol
+add r2, r0, r0
+
+
+
+add r3, r0, r0
+
+addi r1, 6
+#label loop1
+// test comment
+
+li r2, 2
+
+addi r2, 1
+addi r3, 1
+la r7, 16
+bgt r7, r1, r2
+
+add r4, r0, r0
+addi r4, 4
+li r1, 4
+la r7, loop1
+beq r7, r3, r4
+
+li r4, 8
+la r7, 11
+bge r7, r4, r3
+
+// r1 = 4
+// r2 = 4
+// r3 = 10
+// r4 = 8
+// r7 = 4

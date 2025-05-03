@@ -1,0 +1,60 @@
+8 Bit CPU, 8 Register: r0 to r7. r0 is zero, 512 Byte Instruction Memory (256 Instructions) 256 Byte RAM, ~120Hz
+
++++++ Command Format: +++++
+16 Bit split up in: 4[opcode] 4[rd] 4[rs1] 4[rs2/func4]
+
++++++ Instruction Set: +++++
+0000 ADD
+0001 SUB rd, rs1, rs2 ; rd := rs1 - rs2
+0111 AND
+0110 OR
+0100 XOR
+1000 ADDI: 8 Bit immediate in [rs1][rs2]; ADDI r2, 9 => r2 := r2 + 9
+1111 ANDI
+1110 ORI
+1100 XORI
+0101 func4:	---- SRL rd, rs : shift right logical (one bit)
+		---- SRA: shift right arithmetically (one bit; preserve sign)
+		0000 LB rd, (rs): load byte; rs contains address
+		0001 SB r1, (r2): stores content of r1 (r1 in [rd]) at address stored in r2
+1010 LI rd, imm : load immediate
+1010 LA rd, address : load address; technically same as LI, but gets compiled differently.
+		      address is a line number in the assembler code (starting at the first line with 1)
+		      and gets converted to the first following valid assembler line.
+		      address can also reference a label.
+1011 BEQ r1, r2, r3 : branch equals; jump to address in r1, if r2 == r3
+1101 BGT r1, r2, r3 : branch greater than; jump to address in r1, if r2 > r3
+		      WARNING: This only works correctly if the values differentiate by less than 128!
+1001 BGE: branch if greater or equals; see warning above
+0010 unused
+0011 unused
+
++++++ ALU opcodes: (where x is 0 or 1) +++++
+ADD x000
+SUB x001
+;
+XOR x100
+OR  x110
+AND x111
+
++++++ Pseudo-Commands: +++++
+SLL rd, rs1 : shift left logical; add rd, rs1, rs1
+BLT r1, r2, r3 : branch less than; BGT r1, r3, r2
+BLE r1, r2, r3 : branch less equals; BGE r1, r3, r2
+J rd : unconditional jump; BEQ rd, zero, zero
+NOP : no operation; ADD r0, r0, r0
+
++++++ Memory Layout (with memory mapped IO): +++++
+0x00 to 0xCF: actual Random Access Memory (read/write)
+0xD0 to 0xD8: Unused
+0xD9:	      Bit zero is 1 if 'W' is pressed (read only)
+0xDA:	      Bit zero is 1 if 'A' is pressed (read only)
+0xDB:	      Bit zero is 1 if 'S' is pressed (read only)
+0xDC:	      Bit zero is 1 if 'D' is pressed (read only)
+0xDD:	      Bit zero is 1 if 'E' is pressed (read only)
+0xDE:	      Number Display (write only)
+0xDF:	      If Bit zero is Set, the Pixel Disply will refresh in the next Clock Cycle (read/write)
+0xE0 to 0xFF: Pixel Display (read/write)
+	      WARNING: Can only be written to at most every four clock cycles!
+	      (this is because the screen buffers the data to get more time)
+	      WARNING: reading from Display can be very unreliable

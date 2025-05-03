@@ -1,0 +1,13 @@
+,  ,#define zero,   ,  r0 //lol
+
+add r1, zero,     zero
+//sdlkj lkj
+addi     r1, -2
+
+#define lol lol2,,,, , 
+//sdfkj
+add r1, r1, r2
+
+
+
+andi r1, 95

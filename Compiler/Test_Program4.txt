@@ -1,0 +1,62 @@
+// Screen Test:
+
+#define screen 0xE0
+#define refresh 0xDF
+#define numberDisplay 0xDE
+#define pattern 0x0F
+
+li r3, pattern
+
+#label mainLoop
+
+li r1, refresh
+li r2, 1
+sb r2, (r1)
+nop
+sb r0, (r1)
+
+// Row Counter
+li r2, 16
+
+li r4, screen
+
+#label rowLoop
+
+// Write Row
+sb r3, (r4)
+addi r4, 1
+nop
+nop
+sb r3, (r4)
+addi r4, 1
+
+// Update NumberDisplay
+li r1, numberDisplay
+sb r2, (r1)
+
+// Update Pattern
+sll r3, r3
+la r1, skipNewBit
+bgtz r1, r3
+li r5, 0x10
+and r5, r5, r3
+bgtz r1, r5
+
+#label addNewBit
+ori r3, 1
+la r1, afterNewBit
+j r1
+
+#label skipNewBit
+la r1, addNewBit
+li r5, 14
+beq r1, r3, r5
+
+#label afterNewBit
+addi r2, -1
+
+la r1, rowLoop
+bgez r1, r2 // looping 17 times to move the pattern an extra step
+
+la r1, mainLoop
+j r1

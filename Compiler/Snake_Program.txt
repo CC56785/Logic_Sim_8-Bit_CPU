@@ -1,0 +1,453 @@
+// ++++++++++  SNAKE  ++++++++++
+
+// General Layout:
+// 1. Read Key Input
+// 2. Move Snake forward in current direction (in Ring-Buffer)
+// 3. Update Screen
+// 4. Check for Collision with Snake
+// 5. Check for Collision with Apple
+// 6. opt. generate new Apple + adjust Ring-Buffer pointers
+// 7. Remove end of Snake
+// 8. Update Screen
+
+// Memory Usage:
+// 0x00 to 0x03: Snake 'images'
+// 0x04 to 0x0B: Bit Masks (e.g. 0x01, 0x02, ..., 0x80)
+// 0x20 to 0x3F: Screen Buffer: Contains exact copy of the screen
+// 0x40 to 0x7F: Ring-Buffer for Snake. Each Byte stores X in first 3 bits
+// 0x80 to 0xBF: Ring-Buffer for Snake. Each Byte stores Y in first 3 bits
+// 0xC0 to 0xC8: Bitmap for which fields contain Snake (y selects Byte, x selects Bit)
+// 0xCA		   : direction x
+// 0xCB		   : direction y
+// 0xCC		   : Snake Head Buffer
+// 0xCD		   : length of snake
+// 0xCE		   : Apple x
+// 0xCF		   : Apple y
+// r6		   : index in RBX to Tail of Snake
+// r7		   : index in RBX to Head of Snake; normally length of snake == r7 - r6 + 1
+
+
+// ++++++++++  INITIALIZATION  ++++++++++
+
+#define bitMasksBaseAddr 0x04
+#define screenBufferAddr 0x20
+#define RBAddr 0x40
+#define RBOffset 0x40
+#define RBLimit 0x80
+#define snakeBitmapBaseAddr 0xC0
+#define illegalSnakePosMask 0x08
+#define keyAddrW 0xD9
+#define keyAddrA 0xDA
+#define keyAddrS 0xDB
+#define keyAddrD 0xDC
+#define dirAddrX 0xCA
+#define dirAddrY 0xCB
+#define numberDisplay 0xDE
+#define screenAddr 0xE0
+#define snakeHeadBufferAddr 0xCC
+#define snakeLengthAddr 0xCD
+#define appleXAddr 0xCE
+#define appleYAddr 0xCF
+
+// Initialize Pointers
+li r6, RBAddr
+li r7, RBAddr
+
+// Initialize RB
+li r2, RBOffset
+add r2, r2, r7
+li r1, 3
+sb r1, (r2)
+li r1, 1
+sb r1, (r7)
+
+// Initialize direction
+li r2, dirAddrX
+sb r1, (r2)
+
+// Initialize Apple
+li r1, appleXAddr
+sb r5, (r1)
+li r1, appleYAddr
+sb r4, (r1)
+
+// Initialize Snake images
+li r2, 0x03
+sb r2, (r0)
+li r1, 1
+li r2, 0x0C
+sb r2, (r1)
+li r1, 2
+li r2, 0x30
+sb r2, (r1)
+li r1, 3
+li r2, 0xC0
+sb r2, (r1)
+
+// activate screen refresh
+li r2, 0xDF
+sb r1, (r2)
+
+// Initialize Bit Masks
+li r2, bitMasksBaseAddr
+li r1, 1
+sb r1, (r2)
+addi r2, 1
+li r1, 2
+sb r1, (r2)
+addi r2, 1
+li r1, 4
+sb r1, (r2)
+addi r2, 1
+li r1, 8
+sb r1, (r2)
+addi r2, 1
+li r1, 16
+sb r1, (r2)
+addi r2, 1
+li r1, 32
+sb r1, (r2)
+addi r2, 1
+li r1, 64
+sb r1, (r2)
+addi r2, 1
+li r1, -128
+sb r1, (r2)
+
+// Initialize Snake length
+li r1, snakeLengthAddr
+li r2, 3
+sb r2, (r1)
+
+
+// ++++++++++  READ KEY INPUT  ++++++++++
+
+#label mainLoop
+
+// Read Key y
+li r2, keyAddrS
+lb r1, (r2)
+neg r1, r1
+li r2, keyAddrW
+lb r2, (r2)
+or r1, r1, r2
+
+// Branch if dirY != 0
+li r3, 1
+and r3, r3, r1
+la r2, dirYNotZero
+bgtz r2, r3
+
+
+// Read Key x
+li r2, keyAddrA
+lb r1, (r2)
+neg r1, r1
+li r2, keyAddrD
+lb r2, (r2)
+or r1, r1, r2
+
+// Branch if dirX != 0
+li r3, 1
+and r3, r3, r1
+la r2, dirXNotZero
+bgtz r2, r3
+
+
+// Branch to Move y, if existing direction x is zero
+li r1, dirAddrY
+lb r1, (r1) // prepare the last movement again
+li r2, dirAddrX
+lb r4, (r2)
+la r3, moveSnakeY
+beq r3, r4, r0
+
+// Else go to Move x
+add r1, r4, r0
+la r4, moveSnakeX
+j r4
+
+
+// ++++++++++  MOVE SNAKE  ++++++++++
+
+#label dirXNotZero
+
+// Save direction x
+li r2, dirAddrX
+sb r1, (r2)
+
+// Set direction y to 0
+li r2, dirAddrY
+sb r0, (r2)
+
+#label moveSnakeX
+
+// Move Snake x
+lb r4, (r7) // old HeadX
+add r4, r4, r1 // new HeadX
+
+// Check if valid Move x
+li r3, illegalSnakePosMask
+and r3, r3, r4
+la r2, snakeDead
+bgtz r2, r3
+
+// Copy old y
+li r1, RBOffset
+add r1, r1, r7 // old HeadY Address
+lb r5, (r1)
+addi r1, 1
+sb r5, (r1)
+
+// Save Move x
+addi r7, 1
+li r1, RBLimit
+la r2, skip2
+blt r2, r7, r1
+li r7, RBAddr
+#label skip2
+sb r4, (r7)
+
+// Jump to after Moving
+la r1, labelAfterAllMoving
+j r1
+
+
+#label dirYNotZero
+
+// Save direction y
+li r2, dirAddrY
+sb r1, (r2)
+
+// Set direction x to 0
+li r2, dirAddrX
+sb r0, (r2)
+
+
+#label moveSnakeY
+
+// Move Snake y
+li r5, RBOffset // old HeadY Address
+add r5, r5, r7
+lb r5, (r5) // old HeadY
+add r5, r5, r1 // new HeadY
+
+// Check if valid Move y
+li r3, illegalSnakePosMask
+and r3, r3, r5
+la r2, snakeDead
+bgtz r2, r3
+
+// Copy old x
+lb r4, (r7)
+addi r7, 1
+li r1, RBLimit
+la r2, skip2
+blt r2, r7, r1
+li r7, RBAddr
+#label skip2
+sb r4, (r7)
+
+// Save Move y
+li r2, RBOffset
+add r2, r2, r7
+sb r5, (r2)
+
+
+// ++++++++++  UPDATE SCREEN  ++++++++++
+
+#label labelAfterAllMoving
+// new pos x in r4
+// new pos y in r5
+sll r1, r5
+sll r1, r1 // first addr y
+li r2, 4
+and r2, r2, r4
+la r3, switchXTo1inUpdateScreenFirst
+bgtz r3, r2
+la r3, skip0
+j r3
+#label switchXTo1inUpdateScreenFirst
+addi r1, 1
+#label skip0
+li r3, screenBufferAddr
+add r3, r3, r1
+lb r3, (r3) // existing Screen content
+addi r1, screenAddr // final screen address
+li r2, 3
+and r2, r2, r4
+lb r2, (r2) // Snake 'image'
+or r2, r2, r3
+sb r2, (r1) // write to screen
+li r3, 0x3F
+and r3, r3, r1
+sb r2, (r3) // write to screen buffer
+addi r1, 2
+sb r2, (r1) // write to screen
+addi r3, 2
+sb r2, (r3) // write to screen buffer
+
+
+// Save Snake Head into Buffer
+li r1, snakeHeadBufferAddr
+sb r7, (r1)
+
+
+// ++++++++++  CHECK COLLISION SNAKE  ++++++++++
+
+// Update Snake Bitmap
+li r1, bitMasksBaseAddr
+add r1, r1, r4
+lb r1, (r1) // Current new Bit
+li r2, snakeBitmapBaseAddr
+add r3, r2, r5 // Address to current Bitmap line
+lb r2, (r3)
+and r2, r2, r1
+la r7, snakeDead
+bgtz r7, r2 // Dead if Snake crossed into itself
+
+// Save new Bit
+lb r2, (r3)
+or r2, r2, r1
+sb r2, (r3)
+
+
+// Load Snake Head from Buffer
+li r1, snakeHeadBufferAddr
+lb r7, (r1)
+
+
+la r1, skipAppleStuff
+j r1
+
+
+// ++++++++++  CHECK COLLISION APPLE  ++++++++++
+
+// Check for Collision
+li r1, appleXAddr
+lb r1, (r1) // apple x
+sub r3, r4, r1 // delta x
+li r2, appleYAddr
+lb r2, (r2) // apple y
+sub r7, r5, r2 // delta y
+or r3, r3, r7 // is zero only if we are exactly on the apple
+la r7, skipNewApple
+bgtz r7, r3
+bltz r7, r3
+
+// Handle Collision
+li r3, snakeLengthAddr
+lb r4, (r3)
+addi r4, 1
+sb r4, (r3)
+
+#label skipNewApple
+
+// Print Apple
+// apple x in r1
+// apple y in r2
+li r3, screenAddr
+sll r4, r2
+add r4, r4, r3 // final screen addr
+li r3, 4
+la r5, skip5
+blt r5, r1, r3
+
+#label skip5
+li r4, 3
+and r4, r4, r1
+lb r4, (r4) // image
+
+#label skipAppleStuff
+
+
+// ++++++++++  REMOVE END OF SNAKE  ++++++++++
+
+// Check if End needs updating
+sub r1, r7, r6 // current length of Snake
+la r2, skip4
+bgez r2, r1
+addi r1, 0x40 // adjust calculation if we are currently wrapping around the edge of the RB
+#label skip4
+li r2, snakeLengthAddr
+lb r2, (r2)
+la r3, afterSecondScreenUpdate
+blt r3, r1, r2 // Skip Deletion if Snake is already short enough
+
+// Load Coordinates of last Snake Tile
+lb r4, (r6) // x
+li r5, RBOffset
+add r5, r5, r6
+lb r5, (r5) // y
+
+// Increment Tail Pointer
+addi r6, 1
+li r1, RBLimit
+la r2, skip3
+blt r2, r6, r1
+li r6, RBAddr
+#label skip3
+
+// Update Bitmap
+li r1, snakeBitmapBaseAddr
+add r1, r1, r5 // Address into Bitmap
+lb r2, (r1)
+li r3, bitMasksBaseAddr
+add r3, r3, r4
+lb r3, (r3)
+neg r3, r3
+and r2, r2, r3
+sb r2, (r1)
+
+
+// ++++++++++  UPDATE SCREEN AGAIN  ++++++++++
+
+// pos x in r4
+// pos y in r5
+sll r1, r5
+sll r1, r1 // first addr y
+li r2, 4
+and r2, r2, r4
+la r3, switchXTo1inUpdateScreenSecond
+bgtz r3, r2
+la r3, skip1
+j r3
+#label switchXTo1inUpdateScreenSecond
+addi r1, 1
+#label skip1
+li r3, screenBufferAddr
+add r3, r3, r1
+lb r3, (r3) // existing Screen content
+addi r1, screenAddr // final screen address
+li r2, 3
+and r2, r2, r4
+lb r2, (r2) // Snake 'image'
+xori r2, 0xFF
+and r2, r2, r3
+sb r2, (r1) // write to screen
+li r3, 0x3F
+and r3, r3, r1
+sb r2, (r3) // write to screen buffer
+addi r1, 2
+sb r2, (r1) // write to screen
+addi r3, 2
+sb r2, (r3) // write to screen buffer
+
+#label afterSecondScreenUpdate
+
+
+// Go to next Snake Cycle
+la r1, mainLoop
+j r1
+
+
+#label snakeDead
+li r1, numberDisplay
+lb r2, (r1)
+neg r2, r2
+sb r2, (r1)
+
+// Halt
+la r7, halt
+#label halt
+j r7
