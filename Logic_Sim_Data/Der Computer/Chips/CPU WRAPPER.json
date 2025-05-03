@@ -1,0 +1,109 @@
+{
+  "ChipType": 0,
+  "Colour": {
+    "r": 0.47501266,
+    "g": 0.6438883,
+    "b": 0.314984918,
+    "a": 1
+  },
+  "Displays": null,
+  "InputPins":[
+    {
+      "Name":"RESET",
+      "ID":1540428602,
+      "Position":{
+        "x":-3.75,
+        "y":0.75
+      },
+      "BitCount":1,
+      "Colour":0,
+      "ValueDisplayMode":0
+    },
+    {
+      "Name":"MANUAL MODE",
+      "ID":563132609,
+      "Position":{
+        "x":-3.75,
+        "y":-0.875
+      },
+      "BitCount":1,
+      "Colour":0,
+      "ValueDisplayMode":0
+    },
+    {
+      "Name":"MANUAL CLOCK",
+      "ID":1416283986,
+      "Position":{
+        "x":-3.75,
+        "y":-2.5
+      },
+      "BitCount":1,
+      "Colour":0,
+      "ValueDisplayMode":0
+    }
+  ],
+  "Name": "CPU WRAPPER",
+  "NameLocation": 0,
+  "OutputPins":[],
+  "Size": {
+    "x": 1.175,
+    "y": 0.75
+  },
+  "SubChips":[
+    {
+      "Name":"CPU",
+      "ID":1771347786,
+      "Label":"",
+      "Position":{
+        "x":-0.89,
+        "y":-0.875
+      },
+      "OutputPinColourInfo":[],
+      "InternalData":null
+    }
+  ],
+  "Wires":[
+    {
+      "SourcePinAddress":{
+        "PinID":0,
+        "PinOwnerID":1540428602
+      },
+      "TargetPinAddress":{
+        "PinID":540237973,
+        "PinOwnerID":1771347786
+      },
+      "ConnectionType":0,
+      "ConnectedWireIndex":-1,
+      "ConnectedWireSegmentIndex":-1,
+      "Points":[{"x":0.0,"y":0.0},{"x":0.0,"y":0.0}]
+    },
+    {
+      "SourcePinAddress":{
+        "PinID":0,
+        "PinOwnerID":563132609
+      },
+      "TargetPinAddress":{
+        "PinID":1515681236,
+        "PinOwnerID":1771347786
+      },
+      "ConnectionType":0,
+      "ConnectedWireIndex":-1,
+      "ConnectedWireSegmentIndex":-1,
+      "Points":[{"x":0.0,"y":0.0},{"x":0.0,"y":0.0}]
+    },
+    {
+      "SourcePinAddress":{
+        "PinID":0,
+        "PinOwnerID":1416283986
+      },
+      "TargetPinAddress":{
+        "PinID":1674434241,
+        "PinOwnerID":1771347786
+      },
+      "ConnectionType":0,
+      "ConnectedWireIndex":-1,
+      "ConnectedWireSegmentIndex":-1,
+      "Points":[{"x":0.0,"y":0.0},{"x":0.0,"y":0.0}]
+    }
+  ]
+}

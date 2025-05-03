@@ -1,0 +1,185 @@
+{
+  "ChipType": 0,
+  "Colour": {
+    "r": 0.282014877,
+    "g": 0.785351,
+    "b": 0.514079452,
+    "a": 1
+  },
+  "Displays": null,
+  "InputPins":[
+    {
+      "Name":"IN A",
+      "ID":469937175,
+      "Position":{
+        "x":0.75,
+        "y":0.125
+      },
+      "BitCount":8,
+      "Colour":0,
+      "ValueDisplayMode":2
+    },
+    {
+      "Name":"IN B",
+      "ID":1217485940,
+      "Position":{
+        "x":-0.125,
+        "y":-1.1875
+      },
+      "BitCount":8,
+      "Colour":0,
+      "ValueDisplayMode":2
+    }
+  ],
+  "Name": "SUB8",
+  "NameLocation": 0,
+  "OutputPins":[
+    {
+      "Name":"OUT",
+      "ID":1463325344,
+      "Position":{
+        "x":6.5,
+        "y":-0.4375
+      },
+      "BitCount":8,
+      "Colour":0,
+      "ValueDisplayMode":2
+    }
+  ],
+  "Size": {
+    "x": 0.725,
+    "y": 1.0
+  },
+  "SubChips":[
+    {
+      "Name":"ADD8",
+      "ID":843628043,
+      "Label":"",
+      "Position":{
+        "x":4.2475,
+        "y":-0.8125
+      },
+      "OutputPinColourInfo":[{"PinColour":0,"PinID":1153469217},{"PinColour":0,"PinID":296558761}],
+      "InternalData":null
+    },
+    {
+      "Name":"XOR8",
+      "ID":1578374538,
+      "Label":"",
+      "Position":{
+        "x":2.2475,
+        "y":-0.9375
+      },
+      "OutputPinColourInfo":[{"PinColour":0,"PinID":1195994292}],
+      "InternalData":null
+    },
+    {
+      "Name":"ALL ONE8",
+      "ID":257702127,
+      "Label":"",
+      "Position":{
+        "x":-1.1475,
+        "y":-0.6875
+      },
+      "OutputPinColourInfo":[{"PinColour":0,"PinID":1186656276}],
+      "InternalData":null
+    },
+    {
+      "Name":"NOT",
+      "ID":189336274,
+      "Label":"",
+      "Position":{
+        "x":2.7975,
+        "y":-1.875
+      },
+      "OutputPinColourInfo":[{"PinColour":0,"PinID":238257097}],
+      "InternalData":null
+    }
+  ],
+  "Wires":[
+    {
+      "SourcePinAddress":{
+        "PinID":1153469217,
+        "PinOwnerID":843628043
+      },
+      "TargetPinAddress":{
+        "PinID":0,
+        "PinOwnerID":1463325344
+      },
+      "ConnectionType":0,
+      "ConnectedWireIndex":-1,
+      "ConnectedWireSegmentIndex":-1,
+      "Points":[{"x":0.0,"y":0.0},{"x":0.0,"y":0.0}]
+    },
+    {
+      "SourcePinAddress":{
+        "PinID":1195994292,
+        "PinOwnerID":1578374538
+      },
+      "TargetPinAddress":{
+        "PinID":383232396,
+        "PinOwnerID":843628043
+      },
+      "ConnectionType":0,
+      "ConnectedWireIndex":-1,
+      "ConnectedWireSegmentIndex":-1,
+      "Points":[{"x":0.0,"y":0.0},{"x":0.0,"y":0.0}]
+    },
+    {
+      "SourcePinAddress":{
+        "PinID":0,
+        "PinOwnerID":1217485940
+      },
+      "TargetPinAddress":{
+        "PinID":664806519,
+        "PinOwnerID":1578374538
+      },
+      "ConnectionType":0,
+      "ConnectedWireIndex":-1,
+      "ConnectedWireSegmentIndex":-1,
+      "Points":[{"x":0.0,"y":0.0},{"x":0.0,"y":0.0}]
+    },
+    {
+      "SourcePinAddress":{
+        "PinID":1186656276,
+        "PinOwnerID":257702127
+      },
+      "TargetPinAddress":{
+        "PinID":389952472,
+        "PinOwnerID":1578374538
+      },
+      "ConnectionType":0,
+      "ConnectedWireIndex":-1,
+      "ConnectedWireSegmentIndex":-1,
+      "Points":[{"x":0.0,"y":0.0},{"x":0.0,"y":0.0}]
+    },
+    {
+      "SourcePinAddress":{
+        "PinID":0,
+        "PinOwnerID":469937175
+      },
+      "TargetPinAddress":{
+        "PinID":907666301,
+        "PinOwnerID":843628043
+      },
+      "ConnectionType":0,
+      "ConnectedWireIndex":-1,
+      "ConnectedWireSegmentIndex":-1,
+      "Points":[{"x":0.0,"y":0.0},{"x":3.1875,"y":0.125},{"x":3.1875,"y":-0.4375},{"x":0.0,"y":0.0}]
+    },
+    {
+      "SourcePinAddress":{
+        "PinID":238257097,
+        "PinOwnerID":189336274
+      },
+      "TargetPinAddress":{
+        "PinID":17380417,
+        "PinOwnerID":843628043
+      },
+      "ConnectionType":0,
+      "ConnectedWireIndex":-1,
+      "ConnectedWireSegmentIndex":-1,
+      "Points":[{"x":0.0,"y":0.0},{"x":3.5,"y":-1.875},{"x":3.5,"y":-1.3125},{"x":0.0,"y":0.0}]
+    }
+  ]
+}

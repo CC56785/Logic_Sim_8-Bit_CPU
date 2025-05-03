@@ -1,0 +1,182 @@
+{
+  "ProjectName": "Der Computer",
+  "DLSVersion_LastSaved": "2.0.4",
+  "DLSVersion_EarliestCompatible": "2.0.0",
+  "CreationTime": "2025-04-14T20:12:43.934+02:00",
+  "LastSaveTime": "2025-04-29T22:00:24.413+02:00",
+  "Prefs_MainPinNamesDisplayMode": 1,
+  "Prefs_ChipPinNamesDisplayMode": 1,
+  "Prefs_SimPaused": false,
+  "Prefs_SimTargetStepsPerSecond": 3000,
+  "Prefs_SimStepsPerClockTick": 10,
+  "AllCustomChipNames":[
+    "NOT",
+    "AND",
+    "OR",
+    "XOR",
+    "ADD1",
+    "ADD0",
+    "ADD4",
+    "ADD8",
+    "SR LATCH",
+    "D LATCH",
+    "D FLIP FLOP",
+    "SWITCH",
+    "D FF+STORE",
+    "REG4",
+    "REG8",
+    "REG BLOCK",
+    "REG8+",
+    "TRI STATE8",
+    "DECODER2",
+    "DECODER3",
+    "COMMAND DECODER",
+    "CPU",
+    "PC",
+    "D LATCH+R",
+    "D FLIP FLOP+R",
+    "REG4+R",
+    "REG8+R",
+    "ONE8",
+    "RAM1x256",
+    "RAM4x256",
+    "CUSTOM CLOCK",
+    "RAM8x256",
+    "SWITCH4",
+    "SWITCH8",
+    "AND8",
+    "OR8",
+    "XOR8",
+    "ALU",
+    "ALL ONE8",
+    "CONTROL UNIT",
+    "FLAG GENERATOR",
+    "BRANCH CONTROL",
+    "MUX4",
+    "RAM8x256 WITH IO",
+    "SUB8",
+    "BINARY TO BCD",
+    "SUB8 IF GREATER EQUALS",
+    "SUB4",
+    "SUB4 IF GREATER EQUALS",
+    "8-BIT NUMBER DISPLAY",
+    "7 SEGMENT DRIVER",
+    "DECODER3+",
+    "DISPLAY DRIVER+B",
+    "MUX3",
+    "COUNTER CLOCK",
+    "D FLIP FLOP FALL-EDGE",
+    "REG8 SINGLE BIT WRITE",
+    "REG8+R+S",
+    "DISPLAY DRIVER",
+    "CPU WRAPPER"
+  ],
+  "StarredList":[
+    {
+      "Name":"IN/OUT",
+      "IsCollection":true
+    },
+    {
+      "Name":"MERGE/SPLIT",
+      "IsCollection":true
+    },
+    {
+      "Name":"BASIC",
+      "IsCollection":true
+    },
+    {
+      "Name":"ALU",
+      "IsCollection":true
+    },
+    {
+      "Name":"REG",
+      "IsCollection":true
+    },
+    {
+      "Name":"RAM",
+      "IsCollection":true
+    },
+    {
+      "Name":"IO",
+      "IsCollection":true
+    },
+    {
+      "Name":"CPU",
+      "IsCollection":true
+    },
+    {
+      "Name":"AND",
+      "IsCollection":false
+    },
+    {
+      "Name":"OR",
+      "IsCollection":false
+    },
+    {
+      "Name":"NOT",
+      "IsCollection":false
+    }
+  ],
+  "ChipCollections":[
+    {
+      "Chips":["NAND","CLOCK","KEY","3-STATE BUFFER"],
+      "IsToggledOpen":false,
+      "Name":"BASIC"
+    },
+    {
+      "Chips":["IN-1","IN-4","IN-8","OUT-1","OUT-4","OUT-8"],
+      "IsToggledOpen":false,
+      "Name":"IN/OUT"
+    },
+    {
+      "Chips":["1-4BIT","1-8BIT","4-8BIT","4-1BIT","8-4BIT","8-1BIT"],
+      "IsToggledOpen":false,
+      "Name":"MERGE/SPLIT"
+    },
+    {
+      "Chips":["BUS-1","BUS-4","BUS-8"],
+      "IsToggledOpen":false,
+      "Name":"BUS"
+    },
+    {
+      "Chips":["7-SEGMENT","DOT DISPLAY","RGB DISPLAY"],
+      "IsToggledOpen":false,
+      "Name":"DISPLAY"
+    },
+    {
+      "Chips":["ROM 256×16"],
+      "IsToggledOpen":false,
+      "Name":"MEMORY"
+    },
+    {
+      "Chips":["XOR","SWITCH","SWITCH4","SWITCH8","MUX3","MUX4","ADD0","ADD1","ADD4","ADD8","SUB4","SUB8","ALL ONE8","AND8","OR8","XOR8","ALU"],
+      "IsToggledOpen":false,
+      "Name":"ALU"
+    },
+    {
+      "Chips":["TRI STATE8","DECODER2","DECODER3","DECODER3+","SR LATCH","D LATCH","D LATCH+R","D FLIP FLOP","D FLIP FLOP FALL-EDGE","D FLIP FLOP+R","D FF+STORE","REG4","REG4+R","REG8","REG8+R","REG8+R+S","REG8+","REG BLOCK"],
+      "IsToggledOpen":false,
+      "Name":"REG"
+    },
+    {
+      "Chips":["CUSTOM CLOCK","RAM1x256","RAM4x256","RAM8x256"],
+      "IsToggledOpen":false,
+      "Name":"RAM"
+    },
+    {
+      "Chips":["SUB4 IF GREATER EQUALS","SUB8 IF GREATER EQUALS","BINARY TO BCD","7 SEGMENT DRIVER","8-BIT NUMBER DISPLAY","COUNTER CLOCK","REG8 SINGLE BIT WRITE","DISPLAY DRIVER","DISPLAY DRIVER+B","RAM8x256 WITH IO"],
+      "IsToggledOpen":false,
+      "Name":"IO"
+    },
+    {
+      "Chips":["ONE8","PC","COMMAND DECODER","CONTROL UNIT","FLAG GENERATOR","BRANCH CONTROL","CPU","CPU WRAPPER"],
+      "IsToggledOpen":false,
+      "Name":"CPU"
+    },
+    {
+      "Chips":["NOT","AND","OR"],
+      "IsToggledOpen":true,
+      "Name":"OTHER"
+    }
+  ]
+}
