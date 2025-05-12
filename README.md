@@ -7,4 +7,4 @@ If you want to check out the computer yourself, the project files are in the "Lo
 Open a console and navigate into the Compiler Folder, then run "java CompilerMain assembly-program.txt", where "assembly-program.txt" should be the name of the file you're trying to compile.
 
 # Conway's Game of Live
-If you're here for Conway's Game of Live, the "Logic_Sim_Data" folder also contains its data (project name: Conways Game of Live)
+If you're here for Conway's Game of Live, the "Logic_Sim_Data" folder also contains its data (project name: Conways Game of Live).
