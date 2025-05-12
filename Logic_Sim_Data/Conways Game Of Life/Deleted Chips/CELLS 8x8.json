@@ -1,0 +1,99 @@
+{
+  "DLSVersion": "2.1.6",
+  "Name": "CELLS 8x8",
+  "NameLocation": 1,
+  "ChipType": 0,
+  "Size": {
+    "x": 5.35741,
+    "y": 5.625
+  },
+  "Colour": {
+    "r": 0.4885754,
+    "g": 0.2039728,
+    "b": 0.5964162,
+    "a": 1
+  },
+  "InputPins":[],
+  "OutputPins":[],
+  "SubChips":[
+    {
+      "Name":"CELLS 4x4",
+      "ID":1536307627,
+      "Label":"",
+      "Position":{
+        "x":-0.89,
+        "y":-4.375
+      },
+      "OutputPinColourInfo":[{"PinColour":0,"PinID":928060120},{"PinColour":0,"PinID":1174151967},{"PinColour":0,"PinID":932520383},{"PinColour":0,"PinID":135034214},{"PinColour":0,"PinID":1896171829},{"PinColour":0,"PinID":671597399},{"PinColour":0,"PinID":743117709},{"PinColour":0,"PinID":39672604}],
+      "InternalData":null
+    },
+    {
+      "Name":"CELLS 4x4",
+      "ID":1627521712,
+      "Label":"",
+      "Position":{
+        "x":-0.89,
+        "y":0.625
+      },
+      "OutputPinColourInfo":[{"PinColour":0,"PinID":928060120},{"PinColour":0,"PinID":1174151967},{"PinColour":0,"PinID":932520383},{"PinColour":0,"PinID":135034214},{"PinColour":0,"PinID":1896171829},{"PinColour":0,"PinID":671597399},{"PinColour":0,"PinID":743117709},{"PinColour":0,"PinID":39672604}],
+      "InternalData":null
+    },
+    {
+      "Name":"CELLS 4x4",
+      "ID":2107761247,
+      "Label":"",
+      "Position":{
+        "x":4.86,
+        "y":0.625
+      },
+      "OutputPinColourInfo":[{"PinColour":0,"PinID":928060120},{"PinColour":0,"PinID":1174151967},{"PinColour":0,"PinID":932520383},{"PinColour":0,"PinID":135034214},{"PinColour":0,"PinID":1896171829},{"PinColour":0,"PinID":671597399},{"PinColour":0,"PinID":743117709},{"PinColour":0,"PinID":39672604}],
+      "InternalData":null
+    },
+    {
+      "Name":"CELLS 4x4",
+      "ID":180099153,
+      "Label":"",
+      "Position":{
+        "x":4.86,
+        "y":-4.375
+      },
+      "OutputPinColourInfo":[{"PinColour":0,"PinID":928060120},{"PinColour":0,"PinID":1174151967},{"PinColour":0,"PinID":932520383},{"PinColour":0,"PinID":135034214},{"PinColour":0,"PinID":1896171829},{"PinColour":0,"PinID":671597399},{"PinColour":0,"PinID":743117709},{"PinColour":0,"PinID":39672604}],
+      "InternalData":null
+    }
+  ],
+  "Wires":[],
+  "Displays":[
+    {
+      "SubChipID":1627521712,
+      "Position":{
+        "x":-1.3125,
+        "y":1.25
+      },
+      "Scale":0.75
+    },
+    {
+      "SubChipID":1536307627,
+      "Position":{
+        "x":-1.3125,
+        "y":-1.375
+      },
+      "Scale":0.74999994
+    },
+    {
+      "SubChipID":2107761247,
+      "Position":{
+        "x":1.3125,
+        "y":1.25
+      },
+      "Scale":0.74999994
+    },
+    {
+      "SubChipID":180099153,
+      "Position":{
+        "x":1.3125,
+        "y":-1.375
+      },
+      "Scale":0.74999994
+    }
+  ]
+}
